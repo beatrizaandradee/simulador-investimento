@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Simule e compare Poupança, Tesouro Selic, CDB e LCI/LCA com aportes mensais, IR regressivo e inflação." />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Simulador de Investimentos | Renda Fixa</title>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="wrap">
+        <span class="tag">📈 Renda fixa</span>
+        <h1>Simulador de <span>Investimentos</span></h1>
+        <p>Compare Poupança, Tesouro Selic, CDB e LCI/LCA com aportes mensais, imposto de renda regressivo e inflação.</p>
+      </div>
+    </header>
+
+    <main class="wrap layout">
+      <!-- ============ Formulário ============ -->
+      <form id="form" class="panel form" novalidate>
+        <h2>Seus dados</h2>
+
+        <label class="field">
+          <span>Valor inicial</span>
+          <div class="input money"><i>R$</i><input id="initial" inputmode="decimal" value="1.000,00" /></div>
+        </label>
+
+        <label class="field">
+          <span>Aporte mensal</span>
+          <div class="input money"><i>R$</i><input id="monthly" inputmode="decimal" value="300,00" /></div>
+        </label>
+
+        <label class="field">
+          <span>Prazo: <b id="yearsOut">5 anos</b></span>
+          <input id="years" type="range" min="1" max="30" step="1" value="5" />
+        </label>
+
+        <details class="assumptions" open>
+          <summary>Premissas de mercado</summary>
+          <p class="hint">Valores de exemplo: atualize com as taxas do dia no site do Banco Central.</p>
+          <div class="grid2">
+            <label class="field">
+              <span>Selic / CDI (% a.a.)</span>
+              <div class="input"><input id="selic" inputmode="decimal" value="12,00" /><i>%</i></div>
+            </label>
+            <label class="field">
+              <span>Inflação IPCA (% a.a.)</span>
+              <div class="input"><input id="inflation" inputmode="decimal" value="4,50" /><i>%</i></div>
+            </label>
+            <label class="field">
+              <span>CDB (% do CDI)</span>
+              <div class="input"><input id="cdbPercent" inputmode="decimal" value="110" /><i>%</i></div>
+            </label>
+            <label class="field">
+              <span>LCI/LCA (% do CDI)</span>
+              <div class="input"><input id="lciPercent" inputmode="decimal" value="90" /><i>%</i></div>
+            </label>
+          </div>
+        </details>
+
+        <p id="formError" class="error" role="alert"></p>
+
+        <button type="button" id="share" class="btn ghost">🔗 Copiar link desta simulação</button>
+      </form>
+
+      <!-- ============ Resultados ============ -->
+      <section class="results" aria-live="polite">
+        <article class="panel best" id="best"></article>
+
+        <div class="cards" id="cards"></div>
+
+        <article class="panel">
+          <div class="panel__head">
+            <h2>Evolução do patrimônio</h2>
+            <div class="legend" id="legend"></div>
+          </div>
+          <div class="chart-box">
+            <canvas id="chart" aria-label="Gráfico da evolução do patrimônio" role="img"></canvas>
+            <div id="tooltip" class="tooltip" hidden></div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel__head">
+            <h2>Ano a ano</h2>
+            <select id="tableProduct" aria-label="Investimento da tabela"></select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Ano</th><th>Total investido</th><th>Juros acumulados</th><th>Saldo bruto</th></tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel goal">
+          <h2>🎯 Em quanto tempo eu chego lá?</h2>
+          <div class="goal__row">
+            <div class="input money"><i>R$</i><input id="goal" inputmode="decimal" value="50.000,00" aria-label="Objetivo" /></div>
+            <p id="goalOut"></p>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="wrap footer">
+      <p>⚠️ Simulação educativa: não considera TR, taxas de custódia, IOF (resgates antes de 30 dias) nem variação das taxas ao longo do tempo. Não é recomendação de investimento.</p>
+      <p>Feito por <a href="https://github.com/beatrizaandradee" target="_blank" rel="noreferrer">Beatriz Almeida Andrade</a> · HTML, CSS e JavaScript puro</p>
+    </footer>
+
+    <div id="toast" class="toast" hidden></div>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>

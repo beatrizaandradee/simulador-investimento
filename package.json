@@ -1,0 +1,12 @@
+{
+  "name": "simulador-investimentos",
+  "version": "1.0.0",
+  "description": "Simulador de investimentos em renda fixa: juros compostos, aportes mensais, IR regressivo e inflação.",
+  "type": "module",
+  "scripts": {
+    "start": "npx serve .",
+    "test": "node --test tests/calc.test.js"
+  },
+  "author": "Beatriz Almeida Andrade",
+  "license": "MIT"
+}
